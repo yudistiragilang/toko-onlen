@@ -11,7 +11,7 @@
  Target Server Version : 100137
  File Encoding         : 65001
 
- Date: 23/08/2019 16:08:58
+ Date: 01/09/2019 09:10:58
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +28,13 @@ CREATE TABLE `alamatdetails`  (
   `adress` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `phone` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`idalamat`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of alamatdetails
+-- ----------------------------
+INSERT INTO `alamatdetails` VALUES (1, 4, 'gilang', 'adisetyo', '081226558445');
+INSERT INTO `alamatdetails` VALUES (2, 4, 'ananda maya', 'palur', '085647247592');
 
 -- ----------------------------
 -- Table structure for bank_transfer
@@ -43,7 +49,13 @@ CREATE TABLE `bank_transfer`  (
   `norek` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `jumlah` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_bank`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of bank_transfer
+-- ----------------------------
+INSERT INTO `bank_transfer` VALUES (1, 1, 4, 'bni', 'gilang', '009', 750000);
+INSERT INTO `bank_transfer` VALUES (2, 2, 4, 'mandiri', 'Yudistira Gilang Adisetyo', '13423', 600000);
 
 -- ----------------------------
 -- Table structure for items
@@ -84,7 +96,12 @@ CREATE TABLE `orderdetails`  (
   `order_date` date NOT NULL,
   PRIMARY KEY (`order_id`) USING BTREE,
   INDEX `FK_orderdetails_1`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of orderdetails
+-- ----------------------------
+INSERT INTO `orderdetails` VALUES (2, 4, 4, 'aquascape natural', 300000, 2, 600000, 'ordered', '2019-08-23');
 
 -- ----------------------------
 -- Table structure for saran
@@ -116,6 +133,6 @@ CREATE TABLE `users`  (
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (1, 'admin@admin.com', 'admin', 'Sapi', 'Cungkring', 'Solo', 1);
-INSERT INTO `users` VALUES (4, 'sapi@cungkring.com', 'sapi', 'Yudhistira', 'Gilang Adisetyo', 'Karangasem Rt.04 Rw.03 Sroyo Jaten Karanganyar', 0);
+INSERT INTO `users` VALUES (4, 'sapi@cungkring.com', 'sapi', 'Yudhistira', 'Gilang', 'Karangasem Rt.04 Rw.03 Sroyo Jaten Karanganyar', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -21,11 +21,11 @@
 	{
 
 		try {
-				$sql = "DELETE FROM users WHERE user_id =:user_id";
+				$sql = "DELETE FROM orderdetails WHERE order_id =:order_id";
 		    	$stmt_delete = $conn->prepare($sql);
-		    	$stmt_delete->bindParam(':user_id',$_GET['delete']);
+		    	$stmt_delete->bindParam(':order_id',$_GET['delete']);
 		    	$stmt_delete->execute();
-		    	echo"<script>window.alert('DATA BERHASIL DIHAPUS');window.location='pelanggan.php'</script>";
+		    	echo"<script>window.alert('DATA BERHASIL DIHAPUS');window.location='pesanan.php'</script>";
 		    }
 		catch(PDOException $e)
 		    {
@@ -34,26 +34,12 @@
 	    
 	}
 
-	if(isset($_GET['hapus_order']))
-	{
-		try {
-				$stmt_delete = $conn->prepare('UPDATE orderdetails SET order_status="Ordered_Finished"  WHERE user_id =:user_id AND order_status="Ordered"');
-				$stmt_delete->bindParam(':user_id',$_GET['hapus_order']);
-	 			$stmt_delete->execute();
-		    	echo"<script>window.alert('Order ".$_GET['hapus_order']." berhasil dihapus');window.location='pelanggan.php'</script>";
-		    }
-		catch(PDOException $e)
-		    {
-		    	echo $sql . "<br>" . $e->getMessage();
-		    }
-	}
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Data Pelanggan</title>
+	<title>Data Detail Pesanan</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../asset/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="../asset/datatables/datatables.min.css">
@@ -79,9 +65,9 @@
 				<ul class="right hide-on-med-and-down">
 					<li><a href="index.php">Beranda</a></li>
 					<li><a href="barang.php">Data Barang</a></li>
-					<li class="active"><a href="pelanggan.php">Data Pelanggan</a></li>
+					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
-					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li class="active"><a href="pesanan.php">Detail Pesanan</a></li>
 					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
@@ -89,9 +75,9 @@
 				<ul class="side-nav" id="mobile-menu">
 					<li><a href="index.php">Beranda</a></li>
 					<li><a href="barang.php">Data Barang</a></li>
-					<li class="active"><a href="pelanggan.php">Data Pelanggan</a></li>
+					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
-					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li class="active"><a href="pesanan.php">Detail Pesanan</a></li>
 					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
@@ -108,7 +94,7 @@
 	<div class="container_body">
 		<div class="row">
 			<div class="col s12 white">
-				<h5>Data Pelanggan </h5>
+				<h5>Data Detail Pesanan </h5>
 				<p>
 					<?php
 			        	$Today=date('y:m:d');
@@ -124,28 +110,32 @@
 		        <thead>
 		            <tr>
 		            	<th>No</th>
-		                <th>Nama</th>
-		                <th>Alamat</th>
-		                <th>Email</th>
-		                <th>Aksi</th>
+	                    <th>Tanggal Pesanan</th>
+	                    <th>Nama Pelanggan</th>
+	                    <th>Menu</th>
+	                    <th>Harga</th>
+	                    <th>Jumlah</th>
+	                    <th>Total</th>
+	                    <th>Aksi</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 					<?php
 
 					$no =1;
-					$stmt = $conn->prepare("SELECT * FROM users WHERE user_level ='0'");
+					$stmt = $conn->prepare("SELECT order_id, order_date, users.user_firstname, users.user_lastname, order_name, order_price, order_quantity, order_total FROM orderdetails, users WHERE orderdetails.user_id=users.user_id AND order_status='ordered' ORDER BY order_date DESC");
                   	$stmt->execute();
 					while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){;?>
 					    <tr>
 					    	<td><?php echo $no++;?></td>
+					        <td><?php echo $row['order_date'];?></td>
 					        <td><?php echo $row['user_firstname']." ".$row['user_lastname'];?></td>
-					        <td><?php echo $row['user_address'];?></td>
-					        <td><?php echo $row['user_email'];?></td>
+					        <td><?php echo $row['order_name'];?></td>
+					        <td><?php echo $row['order_price'];?></td>
+					        <td><?php echo $row['order_quantity'];?></td>
+					        <td><?php echo $row['order_total'];?></td>
 					        <td>
-					        	<?php echo '<a class="tooltipped btn-floating waves-effect waves-light blue" data-position="bottom" data-tooltip="Info Pelanggan"><i class="material-icons left">info_outline</i></a>' ?>
-
-					        	<?php echo'<a onclick="return hapus()" href="?delete='.$row['user_id'].'" class="tooltipped btn-floating waves-effect waves-light red" data-position="bottom" data-tooltip="Hapus Pelanggan"><i class="material-icons">delete</i></a>';?>
+					        	<?php echo'<a onclick="return hapus()" href="?delete='.$row['order_id'].'" class="tooltipped btn-floating waves-effect waves-light red" data-position="bottom" data-tooltip="Hapus Pelanggan"><i class="material-icons">delete</i></a>';?>
 					        </td>
 					    </tr>
 					<?php };?>

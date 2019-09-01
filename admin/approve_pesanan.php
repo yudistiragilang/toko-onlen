@@ -65,6 +65,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li class="active"><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 
@@ -74,6 +75,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li class="active"><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 			</div>
@@ -89,7 +91,7 @@
 	<div class="container_body">
 		<div class="row">
 			<div class="col s12 white">
-				<h5>Data Pelanggan </h5>
+				<h5>Approve Pesanan </h5>
 				<p>
 					<?php
 			        	$Today=date('y:m:d');
@@ -128,7 +130,7 @@
 
 					        	<?php echo '<a onclick="return approve()" href="?approve='.$row['user_id'].'" class="tooltipped btn-floating waves-effect waves-light orange" data-position="bottom" data-tooltip="Approve Pesanan"><i class="material-icons left">delete_sweep</i></a>' ?>
 
-					        	<?php echo '<a class="tooltipped btn-floating waves-effect waves-light yellow" data-position="bottom" data-tooltip="Cetak"><i class="material-icons left">print</i></a>' ?>
+					        	<?php echo '<a href="cetak_laporan.php?view_id='.$row['user_id'].'" target="_blank" class="tooltipped btn-floating waves-effect waves-light yellow" data-position="bottom" data-tooltip="Cetak"><i class="material-icons left">print</i></a>' ?>
 
 					        	<?php echo '<a href="pesanan_sebelum.php?user_id='.$row['user_id'].'" target="_blank" class="tooltipped btn-floating waves-effect waves-light blue" data-position="bottom" data-tooltip="Pesanan Sebelumnya"><i class="material-icons left">remove_red_eye</i></a>' ?>
 					        </td>

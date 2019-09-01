@@ -82,6 +82,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 
@@ -91,6 +92,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 			</div>
