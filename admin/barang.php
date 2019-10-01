@@ -56,11 +56,6 @@
 	<link rel="shortcut icon" href="../favicon.ico" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style type="text/css">
-		/*body{
-			background: gambar/back.jpg;
-		}*/
-	</style>
 </head>
 
 <body>
@@ -82,6 +77,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="saran.php">Saran</a></li>
 					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
@@ -92,6 +88,7 @@
 					<li><a href="pelanggan.php">Data Pelanggan</a></li>
 					<li><a href="approve_pesanan.php">Approve Pesanan</a></li>
 					<li><a href="pesanan.php">Detail Pesanan</a></li>
+					<li><a href="saran.php">Saran</a></li>
 					<li><a href="profil.php">Profil</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
@@ -115,6 +112,7 @@
 
 							$item_name=$_POST["nama"];
 							$item_price=$_POST["harga"];
+							$item_stock=$_POST["stock"];
 
 							try {
 									$stmt = $conn->prepare("SELECT * FROM items WHERE item_name = '$item_name'"); 
@@ -140,7 +138,7 @@
 												move_uploaded_file($tmp_dir,$upload_dir.$itempic);
 
 												try {
-												    	$sql = "INSERT INTO items (item_name, item_price, item_image, item_date) VALUES ('$item_name', '$item_price', '$itempic', CURDATE())";
+												    	$sql = "INSERT INTO items (item_name, item_price, item_image, item_date, item_stock) VALUES ('$item_name', '$item_price', '$itempic', CURDATE(), $item_stock)";
 													    $conn->exec($sql);
 													    echo "<script>alert('Data successfully saved!')</script>";
 														echo "<script>window.open('barang.php','_self')</script>";
@@ -187,6 +185,12 @@
 								</div>
 								<div class="row">
 									<div class="col s12 m12 l12 input-field">
+										<input type="number" name="stock" required id="icon_stock">
+										<label for="icon_stock">Stock</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s12 m12 l12 input-field">
 								    	<input type="file" required name="item_image" id="item_image">
 								    </div>
 							    </div>
@@ -229,6 +233,7 @@
 		            	<th>No</th>
 		                <th>Nama</th>
 		                <th>Harga</th>
+				<th>Stock</th>
 		                <th>Foto</th>
 		                <th>Aksi</th>
 		            </tr>
@@ -244,6 +249,7 @@
 					    	<td><?php echo $no++;?></td>
 					        <td><?php echo $row['item_name'];?></td>
 					        <td><?php echo rupiah($row['item_price']);?></td>
+						<td><?php echo $row['item_stock'];?></td>
 					        <td><?php echo'<img width="100" src="../gambar_barang/'.$row['item_image'].'">  ';?></td>
 					        <td>
 					        	<?php echo'<a class="btn-floating waves-effect waves-light blue" href="eba.php?kode='.$row['item_id'].'"><i class="material-icons">mode_edit</i></a>';?>
